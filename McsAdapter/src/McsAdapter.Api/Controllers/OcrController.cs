@@ -42,7 +42,18 @@ namespace McsAdapter.Api.Controllers
         }
 
         [HttpPost("v2")]
-        public async Task<IActionResult> NewRequest(CustomOcrBindingModel customOcrBindingModel)
+        public async Task<IActionResult> NewRequestFormUrlEncoded(CustomOcrBindingModel customOcrBindingModel)
+        {
+            return await NewMethod(customOcrBindingModel);
+        }
+
+        [HttpPost("v3")]
+        public async Task<IActionResult> NewRequestJson([FromBody]CustomOcrBindingModel customOcrBindingModel)
+        {
+            return await NewMethod(customOcrBindingModel);
+        }
+
+        private async Task<IActionResult> NewMethod(CustomOcrBindingModel customOcrBindingModel)
         {
             if (!ModelState.IsValid)
             {
@@ -58,6 +69,5 @@ namespace McsAdapter.Api.Controllers
 
             return Content(ocrContent);
         }
-
     }
 }
