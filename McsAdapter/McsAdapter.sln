@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6D0402B4-3D3C-4A82-986B-EFE4D88482A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{652644BF-7A8D-4543-8F4F-35A75C0E49A1}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "McsAdapter.Api", "src\McsAdapter.Api\McsAdapter.Api.xproj", "{563E7A7F-6FFC-408A-A954-A97B55EEBB7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{563E7A7F-6FFC-408A-A954-A97B55EEBB7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{563E7A7F-6FFC-408A-A954-A97B55EEBB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{563E7A7F-6FFC-408A-A954-A97B55EEBB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{563E7A7F-6FFC-408A-A954-A97B55EEBB7F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{563E7A7F-6FFC-408A-A954-A97B55EEBB7F} = {6D0402B4-3D3C-4A82-986B-EFE4D88482A2}
+	EndGlobalSection
+EndGlobal
