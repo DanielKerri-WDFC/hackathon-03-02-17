@@ -24,7 +24,7 @@ namespace McsAdapter.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> NewRequest()
         {
-            if (!Request.Form.Files.Any())
+            if (Request.Form?.Files?.Any() != true)
             {
                 return BadRequest("File to read is missing");
             }
@@ -42,25 +42,25 @@ namespace McsAdapter.Api.Controllers
         }
 
         [HttpPost("v2")]
-        public async Task<IActionResult> NewRequestFormUrlEncoded(CustomOcrBindingModel customOcrBindingModel)
+        public async Task<IActionResult> NewRequestFormUrlEncoded(OcrBindingModel ocrBindingModel)
         {
-            return await NewMethod(customOcrBindingModel);
+            return await NewRequest(ocrBindingModel);
         }
 
         [HttpPost("v3")]
-        public async Task<IActionResult> NewRequestJson([FromBody]CustomOcrBindingModel customOcrBindingModel)
+        public async Task<IActionResult> NewRequestJson([FromBody]OcrBindingModel ocrBindingModel)
         {
-            return await NewMethod(customOcrBindingModel);
+            return await NewRequest(ocrBindingModel);
         }
 
-        private async Task<IActionResult> NewMethod(CustomOcrBindingModel customOcrBindingModel)
+        private async Task<IActionResult> NewRequest(OcrBindingModel ocrBindingModel)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(customOcrBindingModel);
+                return BadRequest(ocrBindingModel);
             }
 
-            string ocrContent = await _ocrService.ReadContent(customOcrBindingModel.Url);
+            string ocrContent = await _ocrService.ReadContent(ocrBindingModel.Url);
 
             if (string.IsNullOrWhiteSpace(ocrContent))
             {

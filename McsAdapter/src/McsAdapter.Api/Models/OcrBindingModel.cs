@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace McsAdapter.Api.Models
 {
-    public class CustomOcrBindingModel
+    public class OcrBindingModel
     {
         [Required]
         [Url]

@@ -44,19 +44,17 @@ namespace McsAdapter.Api.Services
 
         }
 
-        
-
-        public async Task<string> ReadContent(string url)
+        public async Task<string> ReadContent(string fileLocationUrl)
         {
             try
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    using (Stream stream = await httpClient.GetStreamAsync(url))
+                    using (Stream fileStream = await httpClient.GetStreamAsync(fileLocationUrl))
                     {
                         httpClient.DefaultRequestHeaders.Add(OcrConstants.AcceptHeader, OcrConstants.AcceptValue);
 
-                        HttpContent httpContent = new ByteArrayContent(stream.ToByteArray());
+                        HttpContent httpContent = new ByteArrayContent(fileStream.ToByteArray());
 
                         httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/octet-stream");
 

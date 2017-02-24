@@ -8,6 +8,6 @@ namespace McsAdapter.Api.Services
     {
         Task<string> ReadContent(IFormFile formFile);
 
-        Task<string> ReadContent(string url);
+        Task<string> ReadContent(string fileLocationUrl);
     }
 }
