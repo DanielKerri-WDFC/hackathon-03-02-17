@@ -11,6 +11,6 @@ namespace McsAdapter.Api.Infrastructure
 
         public static string AcceptHeader { get; } = "Ocp-Apim-Subscription-Key";
 
-        public static string AcceptValue { get; } = "55b5b552735540319888a389ebb6bf1f";
+        public static string AcceptValue { get; } = "1234567890"; // todo: update as needed
     }
 }

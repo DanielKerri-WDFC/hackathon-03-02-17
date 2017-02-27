@@ -8,11 +8,19 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using McsAdapter.Api.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace McsAdapter.Api.Services
 {
     public class OcrService : IOcrService
     {
+        private readonly ILogger<OcrService> _ocrServiceLogger;
+
+        public OcrService(ILogger<OcrService> ocrServiceLogger)
+        {
+            _ocrServiceLogger = ocrServiceLogger;
+        }
+
         public async Task<string> ReadContent(IFormFile formFile)
         {
             try
@@ -29,9 +37,14 @@ namespace McsAdapter.Api.Services
 
                         HttpResponseMessage response = await httpClient.PostAsync(OcrConstants.EndPoint, httpContent);
 
-                        string result = await response.Content.ReadAsStringAsync();
-                        
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            _ocrServiceLogger.LogError($"{response.StatusCode} : {response.ReasonPhrase}");
+                        }
+
                         response.EnsureSuccessStatusCode();
+
+                        string result = await response.Content.ReadAsStringAsync();
 
                         return result;
                     }
@@ -39,7 +52,8 @@ namespace McsAdapter.Api.Services
             }
             catch (Exception e)
             {
-                throw new HttpRequestException(e.Message, e);
+                _ocrServiceLogger.LogError(new EventId(), e, "ReadContent(IFormFile formFile) request failure");
+                return null;
             }
 
         }
@@ -60,9 +74,14 @@ namespace McsAdapter.Api.Services
 
                         HttpResponseMessage response = await httpClient.PostAsync(OcrConstants.EndPoint, httpContent);
 
-                        string result = await response.Content.ReadAsStringAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            _ocrServiceLogger.LogError($"{response.StatusCode} : {response.ReasonPhrase}");
+                        }
 
                         response.EnsureSuccessStatusCode();
+
+                        string result = await response.Content.ReadAsStringAsync();
 
                         return result;
                     }
@@ -70,7 +89,8 @@ namespace McsAdapter.Api.Services
             }
             catch (Exception e)
             {
-                throw new HttpRequestException(e.Message, e);
+                _ocrServiceLogger.LogError(new EventId(), e, "ReadContent(string fileLocationUrl) request failure");
+                return null;
             }
         }
     }

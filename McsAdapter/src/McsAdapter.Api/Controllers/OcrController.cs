@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using McsAdapter.Api.Services;
@@ -21,10 +22,15 @@ namespace McsAdapter.Api.Controllers
             _ocrService = ocrService;
         }
         
-        [HttpPost]
+        [HttpPost("v1")]
         public async Task<IActionResult> NewRequest()
         {
-            if (Request.Form?.Files?.Any() != true)
+            if (!Request.HasFormContentType) // i.e. NOT multipart/form-data
+            {
+                return StatusCode(415);
+            }
+
+            if (Request?.Form?.Files?.Any() != true)
             {
                 return BadRequest("File to read is missing");
             }
@@ -42,7 +48,7 @@ namespace McsAdapter.Api.Controllers
         }
 
         [HttpPost("v2")]
-        public async Task<IActionResult> NewRequestFormUrlEncoded(OcrBindingModel ocrBindingModel)
+        public async Task<IActionResult> NewRequestFormUrlEncoded([FromForm]OcrBindingModel ocrBindingModel)
         {
             return await NewRequest(ocrBindingModel);
         }

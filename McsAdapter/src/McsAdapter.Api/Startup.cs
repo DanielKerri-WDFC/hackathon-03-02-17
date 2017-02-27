@@ -36,7 +36,9 @@ namespace McsAdapter.Api
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            
+
+            app.UseStatusCodePages("text/plain", "Error status code info: {0}");
+
             app.UseMvc();
         }
     }
